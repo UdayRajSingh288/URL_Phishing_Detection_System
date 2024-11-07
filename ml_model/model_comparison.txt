@@ -1,0 +1,65 @@
+
+K Nearest Neighbors
+Accuracy Score: 0.9987489132509171
+Classification Report
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     20124
+           1       1.00      1.00      1.00     27035
+
+    accuracy                           1.00     47159
+   macro avg       1.00      1.00      1.00     47159
+weighted avg       1.00      1.00      1.00     47159
+
+
+Decision Tree
+Accuracy Score: 1.0
+Classification Report
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     20124
+           1       1.00      1.00      1.00     27035
+
+    accuracy                           1.00     47159
+   macro avg       1.00      1.00      1.00     47159
+weighted avg       1.00      1.00      1.00     47159
+
+
+Naive Bayes
+Accuracy Score: 0.9997031319578448
+Classification Report
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     20124
+           1       1.00      1.00      1.00     27035
+
+    accuracy                           1.00     47159
+   macro avg       1.00      1.00      1.00     47159
+weighted avg       1.00      1.00      1.00     47159
+
+
+Random Forest
+Accuracy Score: 1.0
+Classification Report
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     20124
+           1       1.00      1.00      1.00     27035
+
+    accuracy                           1.00     47159
+   macro avg       1.00      1.00      1.00     47159
+weighted avg       1.00      1.00      1.00     47159
+
+
+Support Vector Machine
+Accuracy Score: 0.9999363854195381
+Classification Report
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     20124
+           1       1.00      1.00      1.00     27035
+
+    accuracy                           1.00     47159
+   macro avg       1.00      1.00      1.00     47159
+weighted avg       1.00      1.00      1.00     47159
+

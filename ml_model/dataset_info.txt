@@ -1,0 +1,63 @@
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 235795 entries, 0 to 235794
+Data columns (total 56 columns):
+ #   Column                      Non-Null Count   Dtype  
+---  ------                      --------------   -----  
+ 0   FILENAME                    235795 non-null  object 
+ 1   URL                         235795 non-null  object 
+ 2   URLLength                   235795 non-null  int64  
+ 3   Domain                      235795 non-null  object 
+ 4   DomainLength                235795 non-null  int64  
+ 5   IsDomainIP                  235795 non-null  int64  
+ 6   TLD                         235795 non-null  object 
+ 7   URLSimilarityIndex          235795 non-null  float64
+ 8   CharContinuationRate        235795 non-null  float64
+ 9   TLDLegitimateProb           235795 non-null  float64
+ 10  URLCharProb                 235795 non-null  float64
+ 11  TLDLength                   235795 non-null  int64  
+ 12  NoOfSubDomain               235795 non-null  int64  
+ 13  HasObfuscation              235795 non-null  int64  
+ 14  NoOfObfuscatedChar          235795 non-null  int64  
+ 15  ObfuscationRatio            235795 non-null  float64
+ 16  NoOfLettersInURL            235795 non-null  int64  
+ 17  LetterRatioInURL            235795 non-null  float64
+ 18  NoOfDegitsInURL             235795 non-null  int64  
+ 19  DegitRatioInURL             235795 non-null  float64
+ 20  NoOfEqualsInURL             235795 non-null  int64  
+ 21  NoOfQMarkInURL              235795 non-null  int64  
+ 22  NoOfAmpersandInURL          235795 non-null  int64  
+ 23  NoOfOtherSpecialCharsInURL  235795 non-null  int64  
+ 24  SpacialCharRatioInURL       235795 non-null  float64
+ 25  IsHTTPS                     235795 non-null  int64  
+ 26  LineOfCode                  235795 non-null  int64  
+ 27  LargestLineLength           235795 non-null  int64  
+ 28  HasTitle                    235795 non-null  int64  
+ 29  Title                       235795 non-null  object 
+ 30  DomainTitleMatchScore       235795 non-null  float64
+ 31  URLTitleMatchScore          235795 non-null  float64
+ 32  HasFavicon                  235795 non-null  int64  
+ 33  Robots                      235795 non-null  int64  
+ 34  IsResponsive                235795 non-null  int64  
+ 35  NoOfURLRedirect             235795 non-null  int64  
+ 36  NoOfSelfRedirect            235795 non-null  int64  
+ 37  HasDescription              235795 non-null  int64  
+ 38  NoOfPopup                   235795 non-null  int64  
+ 39  NoOfiFrame                  235795 non-null  int64  
+ 40  HasExternalFormSubmit       235795 non-null  int64  
+ 41  HasSocialNet                235795 non-null  int64  
+ 42  HasSubmitButton             235795 non-null  int64  
+ 43  HasHiddenFields             235795 non-null  int64  
+ 44  HasPasswordField            235795 non-null  int64  
+ 45  Bank                        235795 non-null  int64  
+ 46  Pay                         235795 non-null  int64  
+ 47  Crypto                      235795 non-null  int64  
+ 48  HasCopyrightInfo            235795 non-null  int64  
+ 49  NoOfImage                   235795 non-null  int64  
+ 50  NoOfCSS                     235795 non-null  int64  
+ 51  NoOfJS                      235795 non-null  int64  
+ 52  NoOfSelfRef                 235795 non-null  int64  
+ 53  NoOfEmptyRef                235795 non-null  int64  
+ 54  NoOfExternalRef             235795 non-null  int64  
+ 55  label                       235795 non-null  int64  
+dtypes: float64(10), int64(41), object(5)
+memory usage: 100.7+ MB
