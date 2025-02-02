@@ -16,6 +16,8 @@ sys.stdout = f
 
 chdir(r'C:\Users\CaptainSwing817\projects\final_year_project\ml_model');
 
+data_frame.dropna()
+
 data_frame = read_csv('PhiUSIIL_Phishing_URL_Dataset.csv')
 data_frame = data_frame.drop(labels = ['FILENAME', 'URL', 'Domain', 'TLD', 'Title'], axis = 1)
 
