@@ -4,6 +4,7 @@ from ipaddress import ip_address
 from tld import get_tld
 from requests import get
 from bs4 import BeautifulSoup
+from re import findall
 
 def get_dataset_features(url):
 	try:
@@ -52,14 +53,15 @@ def get_dataset_features(url):
 		if not ch.isalnum():
 			no_of_other_special_characters_in_url += 1
 	no_of_other_special_characters_in_url -= (no_of_equals_in_url + no_of_qmark_in_url + no_of_ampersand_in_url)
-	special_char_ratio_in_url = float(no_of) / float(len(url))
+	special_char_ratio_in_url = float(no_of_other_special_characters_in_url + no_of_equals_in_url
+					+ no_of_qmark_in_url + no_of_ampersand_in_url) / float(len(url))
 	is_https = int(parsed_url.scheme == "https")
 	response = get(url, allow_redirects = True)
 	soup = BeautifulSoup(response.content, "html.parser")
 	html_text = soup.get_text()
 	lines_of_code = 0
 	for line in html_text.splitlines():
-		if line.strpi():
+		if line.strip():
 			lines_of_code += 1
 	largest_line_length = 0
 	for line in html_text.splitlines():
@@ -71,7 +73,7 @@ def get_dataset_features(url):
 	# domain_title_match_score = 0.9
 	# url_title_match_score = 0.9
 	has_favicon = int(soup.find("link", rel=lambda rel: rel and "icon" in rel.lower()) is not None)
-	# robots = 0
+	robots = int(get(urljoin(url, "/robots.txt")) is not None)
 	is_responsive = int(soup.find("meta", attrs={"name": lambda name: name and "viewport" in name.lower()}) is not None)
 	no_of_url_reditrect = len(response.history)
 	no_of_self_reditrect = 0
@@ -82,7 +84,21 @@ def get_dataset_features(url):
 			if initial_hostname == redirect_hostname:
 				no_of_self_redirect += 1
 	has_description = int(soup.find("meta", attrs={"name": lambda name: name and "description" in name.lower()}) is not None)
-	no_of_popup = 
+	no_of_popup = 0
+	script_tags = soup.find_all("script")
+	for script in script_tags:
+		if script.string:
+			script_content = script.string
+			no_of_popup += len(findall(r"\.open\(\s*['\"]", script_content))
+			no_of_popup += len(findall(r"window\.open\(\s*['\"]", script_content))
+			no_of_popup += len(findall(r"showModalDialog\(\s*['\"]", script_content))
+			no_of_popup += len(findall(r"popup\s*=\s*window\.open", script_content))
+			no_of_popup += len(findall(r"new\s+Window\(\s*\)", script_content))
+	elements_with_onclick = soup.find_all(lambda tag: tag.has_attr('onclick'))
+	for element in elements_with_onclick:
+		on_click_content = element.get('onclick').lower()
+		if "window.open" in onclick_content or "showmodaldialog" in onclick_content:
+			no_of_popup += 1
 	no_of_ifrmae = len(soup.find_all("iframes"))
 	has_external_form_submit = 0
 	forms = soup.find_all("form")
@@ -111,8 +127,33 @@ def get_dataset_features(url):
 	has_submit_button = int(soup.find("button", type=lambda type: type and type.lower() == "submit") is not None)
 	has_hidden_fields = int(soup.find_all("input", type=lambda type: type and type.lower() == "hidden") is not None)
 	has_password_field = int(soup.find_all("input", type=lambda type: type and type.lower() == "password") is not None)
-	bank = 
-	pay = 
+	bank = 0
+	keywords = [
+		"account number", "bank name", "routing number", "credit card",
+		"debit card", "cvv", "card number", "account balance",
+		"transaction history", "sort code", "iban", "swift code"
+	]
+	for form in forms:
+		form_text = form.get_text().lower()
+		for keyword in keywords:
+			if keyword in form_text:
+				bank = 1
+				break
+		inputs = form.find_all("input")
+		for input in inputs:
+			name = input.get("name", "").lower()
+			if any(keyword in name for keyword in keywords):
+				bank = 1
+				break
+			type_ = input.get("type", "").lower()
+			if type_ in ["card-number", "cvc", "cvv", "pin"]:
+				bank = 1
+				break
+	pay = 0
+	for form in forms:
+		form_text = form.get_text().lower()
+		for keyword in keywords:
+			if keyword in form_text
 	crypto = 
 	has_copyright_info = 
 	no_of_image = len(soup.find_all("image"))
@@ -122,6 +163,18 @@ def get_dataset_features(url):
 	for link in links:
 		href = link.get("href")
 		if href:
-			
+			parsed_href = urlparse(href)
+			if parsed_href.netloc == parsed_url.netloc:
+				no_of_self_ref += 1
 	no_of_empty_ref = 0
+	for link in links:
+		href = link.get("href")
+		if href is None and href.strip() == "":
+			no_of_empty_ref += 1
 	no_of_external_ref = 0
+	for link in links:
+		href = link.get("href")
+		if href:
+			parsed_href = urlparse(href)
+			if parsed_href.netloc != parsed_url.netloc:
+				no_of_external_ref += 1
