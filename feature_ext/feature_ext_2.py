@@ -90,7 +90,7 @@ def get_crypto(forms):
 		keywords = [
 			"bitcoin", "ethereum", "litecoin", "dogecoin", "cryptocurrency",
 			"crypto payment", "crypto address", "wallet address",
-			"blockchain", "erc-20", "tron", "solana",  # Add more as needed
+			"blockchain", "erc-20", "tron", "solana",
 			"btc", "eth", "ltc", "doge"
 		]
 		for keyword in keywords:
@@ -102,17 +102,17 @@ def get_crypto(forms):
 			if any(keyword in name for keyword in keywords):
 				return 1
 		type_ = input_field.get("type", "").lower()
-		if type_ in ["text", "hidden"]:  # Crypto addresses are often text or hidden
+		if type_ in ["text", "hidden"]:
 			if any(keyword in name for keyword in keywords):
 				return 1
 	return 0
 
 def get_copyright_info(text):
         patterns = [
-            r"copyright\s+(?:©|\(c\)|all rights reserved)?\s*(?:[0-9]{4}-?[0-9]{4})?\s*(.+)",  # Copyright symbol, (c) or all rights reserved. Also matches year ranges.
-            r"©\s*[0-9]{4}\s*(.+)",  # © followed by a year and possibly a company name
-            r"all rights reserved\s*(?:[0-9]{4}\s*(.+))?",  # "all rights reserved" with optional year and company
-            r"©\s*[\d{4}]",  # Copyright symbol and year
+            r"copyright\s+(?:©|\(c\)|all rights reserved)?\s*(?:[0-9]{4}-?[0-9]{4})?\s*(.+)",
+            r"©\s*[0-9]{4}\s*(.+)",
+            r"all rights reserved\s*(?:[0-9]{4}\s*(.+))?",
+            r"©\s*[\d{4}]",
             r"&#169;\s*[0-9]{4}",
             r"&copy;\s*[0-9]{4}",
         ]
@@ -166,11 +166,13 @@ def extract_features(url):
 	#no_of_obfuscated_char = 
 	#features.append(no_of_obfuscated_char)
 	#obfuscation_ratio = 
-	#features,append(obfuscation_ratio)
+	#features.append(obfuscation_ratio)
 	no_of_letters_in_url = 0
 	for ch in url:
 		if ch >= 'A' and ch <= 'Z' or ch >= 'a' and ch <= 'z':
 			no_of_letters_in_url += 1
+	letter_ratio_in_url = float(no_of_letters_in_url) / float(len(url))
+	features.append(letter_ratio_in_url)
 	features.append(no_of_letters_in_url)
 	no_of_digits_in_url = 0
 	for ch in url:
@@ -316,4 +318,6 @@ def extract_features(url):
 	return features
 
 if __name__ == "__main__":
-	print(extract_features("https://www.amazon.com/"))
+	features = extract_features("https://www.amazon.com/")
+	print(len(features))
+	print(features)
