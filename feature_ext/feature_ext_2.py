@@ -4,7 +4,7 @@ from ipaddress import ip_address
 from tld import get_tld
 from requests import get
 from bs4 import BeautifulSoup
-from re import findall
+from re import findall, search
 
 
 def get_char_continuation_rate(url_string):
@@ -67,8 +67,8 @@ def get_pay(forms):
 			"payment method", "payment gateway"
 		]
 		for keyword in keywords:
-		if keyword in form_text:
-			return 1
+			if keyword in form_text:
+				return 1
 		inputs = form.find_all("input")
 		for input_field in inputs:
 			name = input_field.get("name", "").lower()
@@ -105,9 +105,9 @@ def get_crypto(forms):
 		if type_ in ["text", "hidden"]:  # Crypto addresses are often text or hidden
 			if any(keyword in name for keyword in keywords):
 				return 1
-        return 0
+	return 0
 
-def get_copyright(text):
+def get_copyright_info(text):
         patterns = [
             r"copyright\s+(?:©|\(c\)|all rights reserved)?\s*(?:[0-9]{4}-?[0-9]{4})?\s*(.+)",  # Copyright symbol, (c) or all rights reserved. Also matches year ranges.
             r"©\s*[0-9]{4}\s*(.+)",  # © followed by a year and possibly a company name
@@ -117,14 +117,8 @@ def get_copyright(text):
             r"&copy;\s*[0-9]{4}",
         ]
         for pattern in patterns:
-            if re.search(pattern, text):
+            if search(pattern, text):
                 return 1
-        copyright_elements = soup.find_all(lambda tag: tag.name in ['p', 'span', 'div', 'footer'] and (
-            'copyright' in tag.text.lower() or 'all rights reserved' in tag.text.lower() or '©' in tag.text or '(c)' in tag.text or '&#169;' in tag.text or '&copy;' in tag.text
-        ))
-
-        if copyright_elements:
-            return 1
         return 0
 
 
