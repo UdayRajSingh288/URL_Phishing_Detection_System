@@ -121,6 +121,22 @@ def get_copyright_info(text):
                 return 1
         return 0
 
+def get_has_obfuscation(hostname, path, query, url):
+	if search(r"[%+]", url):
+		return 1
+	if search(r"%[0-9a-fA-F]{2}", url) or search(r"\\\[0-7]{3}", url):
+		return 1
+	if len(path) > 50 and search(r"[^a-zA-Z0-9/]", path):
+		return  1
+	if len(query) > 50 and search(r"[^a-zA-Z0-9&=]", query):
+		return 1
+	if hostname:
+		if search(r"[0-9]", hostname) and not search(r"\.", hostname):
+			return 1
+		top_level_domains = [".xyz", ".top", ".club", ".online", ".site", ".tech", ".info"]
+		if any(tld in hostname for tld in top_level_domains):
+			return 1
+	return 0
 
 def extract_features(url):
 	parsed_url = None
@@ -149,24 +165,29 @@ def extract_features(url):
 	features.append(is_domain_ip)
 	tld = get_tld(url, as_object = False)
 	features.append(tld)
-	#url_similarity_index = 
-	#features.append(url_similarity_index)
+	url_similarity_index = 100.0
+	features.append(url_similarity_index)
 	char_continuation_rate = get_char_continuation_rate(parsed_url.geturl())
 	features.append(char_continuation_rate)
-	#tld_legitimate_prob = 
-	#features.append(tld_legitimate_prob)
-	#url_char_prob = 
-	#features.append(url_char_prob)
+	tld_legitimate_prob = 0.5229071
+	features.append(tld_legitimate_prob)
+	url_char_prob = 0.057332856
+	features.append(url_char_prob)
 	tld_length = len(tld)
 	features.append(tld_length)
 	no_of_subdomain = len(domain.split('.')) - 2
 	features.append(no_of_subdomain)
-	#has_obfuscation = 
-	#features.append(has_obfuscation)
-	#no_of_obfuscated_char = 
-	#features.append(no_of_obfuscated_char)
-	#obfuscation_ratio = 
-	#features.append(obfuscation_ratio)
+	has_obfuscation = get_has_obfuscation(parsed_url.netloc, parsed_url.path, parsed_url.query, url)
+	features.append(has_obfuscation)
+	no_of_obfuscated_char = 0
+	no_of_obfuscated_char += len(findall(r"[%+]", url))
+	no_of_obfuscated_char += len(findall(r"%[0-9a-fA-F]{2}", url))
+	no_of_obfuscated_char += len(findall(r"\\\[0-7]{3}", url))
+	no_of_obfuscated_char += len(findall(r"[0O]", url))
+	no_of_obfuscated_char += len(findall(r"[1lI]", url))
+	features.append(no_of_obfuscated_char)
+	obfuscation_ratio = float(no_of_obfuscated_char) / float(len(url))
+	features.append(obfuscation_ratio)
 	no_of_letters_in_url = 0
 	for ch in url:
 		if ch >= 'A' and ch <= 'Z' or ch >= 'a' and ch <= 'z':
@@ -224,10 +245,10 @@ def extract_features(url):
 	features.append(has_title)
 	title = soup.find("title")
 	features.append(title)
-	# domain_title_match_score = 
-	# features.append(domain_title_match_score)
-	# url_title_match_score = 
-	#features.append(url_title_match_score)
+	domain_title_match_score = 100.0
+	features.append(domain_title_match_score)
+	url_title_match_score = 100.0
+	features.append(url_title_match_score)
 	has_favicon = int(soup.find("link", rel=lambda rel: rel and "icon" in rel.lower()) is not None)
 	features.append(has_favicon)
 	robots = int(get(urljoin(url, "/robots.txt")) is not None)
@@ -321,3 +342,9 @@ if __name__ == "__main__":
 	features = extract_features("https://www.amazon.com/")
 	print(len(features))
 	print(features)
+
+# url similarity index
+# url legitimate prob
+# url char prob
+# domain title match score
+# url title match score
