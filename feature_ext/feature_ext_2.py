@@ -344,7 +344,7 @@ if __name__ == "__main__":
 	print(features)
 
 # url similarity index
-# url legitimate prob
+# tld legitimate prob
 # url char prob
 # domain title match score
 # url title match score
