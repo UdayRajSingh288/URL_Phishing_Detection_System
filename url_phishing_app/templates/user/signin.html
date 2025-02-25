@@ -3,7 +3,7 @@
 		<title>Signin</title>
 	</head>
 	<body>
-		<form action = "{% url 'signin_process' %}" method = "POST">
+		<form action = "{% url 'user:signin_process' %}" method = "POST">
 			{% csrf_token %}	
 			<input type = "email" name = "email" placeholder = "Enter email"><br>
 			<input type = "password" name = "pswd" placeholder = "Enter password"><br>
