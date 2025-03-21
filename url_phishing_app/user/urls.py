@@ -10,5 +10,6 @@ urlpatterns = [
 	path('signup_process/', views.signup_process, name = 'signup_process'),
 	path('signin_process/', views.signin_process, name = 'signin_process'),
 	path('otp/', views.otp, name = 'otp'),
-	path('url/', views.url, name = 'url')
+	path('otp_check/', views.otp_check, name = 'otp_check'),
+	path('url/', views.url, name = 'url'),
 ]

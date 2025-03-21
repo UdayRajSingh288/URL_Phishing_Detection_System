@@ -3,7 +3,7 @@
 		<title>OTP</title>
 	</head>
 	<body>
-		<form action = "{% url 'user:otp' %}" method = "POST">
+		<form action = "{% url 'user:otp_check' %}" method = "POST">
 			{% csrf_token %}
 			<input type = "number" name = "otp" placeholder = "Enter OTP"><br>
 			<input type = "submit" value = "Verify">
