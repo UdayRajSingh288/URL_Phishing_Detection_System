@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import RandomOverSampler
 from sklearn.metrics import classification_report, accuracy_score
 from sklearn.ensemble import RandomForestClassifier
-from joblib import dump
+#from joblib import dump
 
 
 # fl = open('final_model.txt', 'w')
@@ -36,4 +36,4 @@ print('Classification Report\n' + classification_report(Y_test, Y_pred))
 
 # fl.close()
 
-dump(rf, 'url_phishing_model.joblib')
+#dump(rf, 'url_phishing_model.joblib')
