@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<form action = "{% url 'user:signup_process' %}" method = "POST">
+	<form action = "{% url 'user:signup' %}" method = "POST">
 		{% csrf_token %}
 		<input type = "email" name = "email" placeholder = "Enter email"><br>
 		<input type = "password" name = "pswd" placeholder = "Enter password"><br>
