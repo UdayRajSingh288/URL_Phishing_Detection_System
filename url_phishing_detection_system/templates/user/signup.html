@@ -1,11 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<form action = "{% url 'user:signup' %}" method = "POST">
+	<form id = "form" action = "{% url 'user:signup' %}" method = "POST">
 		{% csrf_token %}
 		<input type = "email" name = "email" placeholder = "Enter email"><br>
-		<input type = "password" name = "pswd" placeholder = "Enter password"><br>
-		<input type = "password" name = "pswd_cnf" placeholder = "Confirm password"><br>
-		<input type = "submit" name = "Signup">
+		<input id = "pswd" type = "password" name = "pswd" placeholder = "Enter password"><br>
+		<input id = "pswd_cnf" type = "password" name = "pswd_cnf" placeholder = "Confirm password"><br>
+		<button type = "button" onClick = "validatePassword()">Signup</button>
 	</form>
+
+	<script>
+		function isStrongPassword(password) {
+			const minLength = 8;
+			const hasUpper = /[A-Z]/.test(password);
+			const hasLower = /[a-z]/.test(password);
+			const hasNumber = /\d/.test(password);
+			const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+			return password.length >= minLength && hasUpper && hasLower && hasNumber && hasSpecial;
+		}
+
+		function validatePassword(){
+			const pswd = document.getElementById("pswd");
+			const pswd_cnf = document.getElementById("pswd_cnf");
+			const form = document.getElementById("form");
+
+			if (pswd.value !== pswd_cnf.value){
+				alert("Passwords do not match!");
+				form.reset();
+			}
+			else if (isStrongPassword(pswd.value) === false){
+				alert("Password weak!");
+				form.reset();
+			}
+			else {
+				form.submit();
+			}
+		}
+
+	</script>
 {% endblock %}

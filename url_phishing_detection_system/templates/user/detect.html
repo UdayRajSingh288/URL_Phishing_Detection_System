@@ -7,4 +7,7 @@
 		<input type = "submit" name = "Submit">
 	</form>
 
+	<a href = "{% url 'user:logout' %}">Logout</a><br>
+	<a href = "{% url 'user:delete' %}">Delete User</a>
+
 {% endblock %}
