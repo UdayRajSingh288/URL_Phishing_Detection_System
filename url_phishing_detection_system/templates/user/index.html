@@ -1,5 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<a href = "{% url 'user:signin' %}">Signin</a>
+	<h1>Welcome to URL Phishing Detection Application: Your First Line of Defense Against Phishing</h1>
+	<p>At URL Phishing Detection Application, we understand the growing threat of phishing attacks in today's digital world. Our mission is to provide a reliable, machine learning-driven solution to detect phishing attempts by analyzing URLs and HTML pages to keep your data safe.</p>
+
+	<h3>How It Works</h3>
+	<p>Our application leverages advanced machine learning algorithms to assess the safety of URLs and web pages by extracting key features from both the URL and HTML content. These features are then fed into a trained machine learning model to determine whether a site is legitimate or a phishing attempt.</p>
+
+	<p>URL Analysis: We evaluate the structure of the URL, including domain names, subdomains, and query parameters, which are common indicators of phishing attempts.</p>
+
+	<p>HTML Content Analysis: Our system scans the HTML page for suspicious elements like misleading forms, links, and any red flags commonly associated with phishing pages.</p>
+
+	<p>Machine Learning Model: After extracting these features, our machine learning model processes them and provides a reliable prediction, helping you make informed decisions quickly.</p>
+
+	<p>Once the analysis is complete, you’ll receive a result indicating whether the URL or webpage is safe or potentially a phishing attempt.</p>
+
+	<h3>Key Features</h3>
+	<p>Instant Phishing Detection: Easily input a URL or HTML page to get fast, accurate phishing detection results.</p>
+
+	<p>REST API: Seamlessly integrate our phishing detection technology into your own applications with our simple-to-use REST API.</p>
+
+	<p>Browser Extension: Enhance your browsing experience with our real-time phishing detection browser extension, protecting you as you surf the web.<p>
+
+	<h3>Why Choose URL Phishing Detection Application?</h3>
+	<p>Accurate & Reliable: Powered by a robust machine learning model that accurately identifies phishing websites.</p>
+
+	<p>Seamless Integration: Whether you're a developer, business, or end user, our REST API and browser extension are designed for easy integration.</p>
+
+	<p>Fast & Efficient: Get quick results so you can take immediate action and stay safe online.</p>
+
+	<h3>Get Started with URL Phishing Detection Application</h3>
+	<p>Take control of your online safety by using our phishing detection tool. Whether you're an individual user, developer, or business, we offer simple, effective protection from phishing threats.</p>
+
+	<p>Sign up now and start detecting phishing websites with ease.</p>
+	<h1><a href = "{% url 'user:signin' %}">Signin</a></h1>
 {% endblock %}

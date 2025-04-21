@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
+	<div class = "form-container">
 	<form action = "{% url 'user:signin' %}" method = "POST">
 		{% csrf_token %}
 		<input type = "email" name = "email" placeholder = "Enter email"><br>
 		<input type = "password" name = "pswd" placeholder = "Enter password"><br>
-		<input type = "submit" name = "Signin">
+		<input type = "submit" value = "Signin">
+		<h3><a href = "{% url 'user:signup' %}">Signup</a></h3>
 	</form>
-	<a href = "{% url 'user:signup' %}">Signup</a>
+	</div>
 {% endblock %}

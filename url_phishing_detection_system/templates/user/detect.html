@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+	<div class = "form-container">
 	<form action = "{% url 'user:detect' %}" method = "POST">
+		{% csrf_token %}
 		<input type = "text" name = "url" placeholder = "Enter URL"><br>
-		<input type = "submit" name = "Submit">
+		<input type = "submit" value = "Submit">
+		<h3><a href = "{% url 'user:logout' %}">Logout</a></h3>
+		<h3><a href = "{% url 'user:delete' %}">Delete User</a></h3>
 	</form>
+	</div>
 
-	<a href = "{% url 'user:logout' %}">Logout</a><br>
-	<a href = "{% url 'user:delete' %}">Delete User</a>
 
 {% endblock %}

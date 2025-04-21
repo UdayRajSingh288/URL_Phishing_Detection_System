@@ -98,8 +98,8 @@ def testURL_view(request):
 		u = User.objects.get(email = e)
 		if checkpw(p.encode(encoding = 'utf-8'), u.password):
 			resp = post('http://127.0.0.1:8080', json = {'url': l})
-			return Response({'status': resp.text}, status=status.HTTP_200_OK)
+			return Response(resp.json(), status=status.HTTP_200_OK)
 		else:
-			return Response({'status': 'PASSWORD INCORRECT!'}, status=status.HTTP_200_OK)
+			return Response({'STATUS': 'PASSWORD INCORRECT!'}, status=status.HTTP_200_OK)
 	else:
-		Response({'status': 'USER NOT FOUND!'}, status=status.HTTP_200_OK)
+		return Response({'STATUS': 'USER NOT FOUND!'}, status=status.HTTP_200_OK)
