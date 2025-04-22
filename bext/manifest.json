@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "URL Phsihing Detection System",
+  "version": "1.0",
+  "description": "Detects if the current tab URL is phishing or not",
+  "permissions": [
+    "tabs",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://localhost:8000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
